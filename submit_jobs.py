@@ -102,7 +102,7 @@ def main():
                 if not os.path.exists(output_directory):
                     os.makedirs(output_directory)
 
-                    replace_line('templates/inlist1_template', 
+                    replace_line('templates/inlist.template', 
                                  'save_model_filename', 
                                  'save_model_filename = ' + '\''+model_name+'\'', 
                                  'inlist')
@@ -126,7 +126,7 @@ def main():
                     modify_inlist_value('inlist',variable2['name'],value2,'inlist')
                     modify_inlist_value('inlist',variable3['name'],value3,'inlist')
 
-                    replace_line('templates/condor.job.temp',
+                    replace_line('templates/condor.job.template',
                                  'Log =', 
                                  'Log =' + os.path.join(output_directory,'condor.log'),
                                  'condor.job')
@@ -142,10 +142,12 @@ def main():
                                  'Error =', 
                                  'Error =' + os.path.join(output_directory,'condor.err'),
                                  'condor.job')
-                    #print('submiting job {:f} at output dir {:f}'.format(output_directory,output_directory))
+
                     os.system('cp inlist ' + output_directory)
                     os.system('cp inlist ' + mesa_directory)
                     os.system('condor_submit \'condor.job\'')
+                    os.system('rm -f inlist')
+                    os.system('rm condor.job')
 
 
 if __name__ == "__main__":

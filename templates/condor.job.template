@@ -4,8 +4,8 @@ Executable = run_mesa.sh
 Output = 
 Error = 
 Log =
-request_memory = 1 GB
-environment = OMP_NUM_THREADS=2;PYTHONBUFFERED=1
-request_cpus = 2 
+request_memory = 4 GB
+environment = OMP_NUM_THREADS=4;PYTHONBUFFERED=1
+request_cpus = 4 
 
 queue 

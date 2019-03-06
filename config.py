@@ -9,19 +9,19 @@ out_directory= '/vol/aibn185/data1/jantoniadis/HeCoresCondor/full_grid'
 variable1 = {'name': 'initial_mass',
              'location': 'inlist_var',
              'type': 'array',
-             'minimum': 1.5,
-             'maximum': 3.0,
+             'minimum': 2.5,
+             'maximum': 2.6,
              'step': 0.1,
 }
 
 variable2 = {'name': 'initial_z',
              'location': 'inlist_var',
              'type': 'predetermined_array',
-             'values': [0.00001,0.0014]
+             'values': [0.000,0.0014]
 }
 
 variable3 = {'name': 'overshoot',
              'location': 'inlist_var',
              'type': 'predetermined_array',
-             'values': [0.000,0.014,0.016]
+             'values': [0.000]
 }

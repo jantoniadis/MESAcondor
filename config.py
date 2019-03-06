@@ -1,6 +1,7 @@
 #path to folder that contains the mesa executable
-mesa_directory = '/Users/janton/mesa-r10398/star/test_suite/test_cluster'
-out_directory= '/Users/janton/mesa-r10398/star/test_suite/cluster/output'
+mesa_root_dir = '/vol/aibn185/data1/jantoniadis/mesa-r10398'
+mesa_directory = '/vol/aibn185/data1/jantoniadis/mesa-r10398/star/test_suite/Condor'
+out_directory= '/vol/aibn185/data1/jantoniadis/HeCoresCondor/full_grid'
 
 
 #Can explore up to three variables
@@ -8,15 +9,15 @@ out_directory= '/Users/janton/mesa-r10398/star/test_suite/cluster/output'
 variable1 = {'name': 'initial_mass',
              'location': 'inlist_var',
              'type': 'array',
-             'minimum': 1.0,
-             'maximum': 3.5,
+             'minimum': 1.5,
+             'maximum': 3.0,
              'step': 0.1,
 }
 
 variable2 = {'name': 'initial_z',
              'location': 'inlist_var',
              'type': 'predetermined_array',
-             'values': [0.0001,0.001,0.014,0.02]
+             'values': [0.00001,0.0014]
 }
 
 variable3 = {'name': 'overshoot',

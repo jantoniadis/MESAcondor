@@ -1,0 +1,4 @@
+#!/bin/sh
+#ulimit -d 100000
+cd
+nice -n +10 ionice -c3 ./rn

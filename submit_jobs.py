@@ -102,52 +102,58 @@ def main():
                 if not os.path.exists(output_directory):
                     os.makedirs(output_directory)
 
-                    replace_line('templates/inlist.template', 
-                                 'save_model_filename', 
-                                 'save_model_filename = ' + '\''+model_name+'\'', 
-                                 'inlist')
+                replace_line('templates/inlist.template', 
+                             'save_model_filename', 
+                             'save_model_filename = ' + '\''+model_name+'\'', 
+                             'inlist')
 
-                    replace_line('inlist', 
-                                 'filename_for_profile_when_terminate =', 
-                                 'filename_for_profile_when_terminate =' +  '\''+final_profile_name+ '\'', 
-                                 'inlist')
+                replace_line('inlist', 
+                             'filename_for_profile_when_terminate', 
+                             'filename_for_profile_when_terminate =' +  '\''+final_profile_name+ '\'', 
+                             'inlist')
 
-                    replace_line('inlist', 
-                                 'log_directory', 
-                                 'log_directory = ' +  '\''+LOGS+'\'', 
-                                 'inlist')
+                replace_line('inlist', 
+                             'log_directory', 
+                             'log_directory = ' +  '\''+LOGS+'\'', 
+                             'inlist')
 
-                    replace_line('inlist', 
-                                 'photo_directory', 
-                                 'photo_directory = ' +  '\''+photos+'\'', 
-                                 'inlist')
+                replace_line('inlist', 
+                             'photo_directory', 
+                             'photo_directory = ' +  '\''+photos+'\'', 
+                             'inlist')
 
-                    modify_inlist_value('inlist',variable1['name'],value1,'inlist')
-                    modify_inlist_value('inlist',variable2['name'],value2,'inlist')
-                    modify_inlist_value('inlist',variable3['name'],value3,'inlist')
+                modify_inlist_value('inlist',variable1['name'],value1,'inlist')
+                modify_inlist_value('inlist',variable2['name'],value2,'inlist')
+                modify_inlist_value('inlist',variable3['name'],value3,'inlist')
 
-                    replace_line('templates/condor.job.template',
-                                 'Log =', 
-                                 'Log =' + os.path.join(output_directory,'condor.log'),
-                                 'condor.job')
-                    replace_line('condor.job',
-                                 'Output =', 
-                                 'Output =' + os.path.join(output_directory,'condor.out'),
-                                 'condor.job')
-                    replace_line('condor.job',
-                                 'Executable =', 
-                                 'Executable =' + os.path.join(mesa_directory,'rn'),
-                                 'condor.job')
-                    replace_line('condor.job',
-                                 'Error =', 
-                                 'Error =' + os.path.join(output_directory,'condor.err'),
-                                 'condor.job')
-
-                    os.system('cp inlist ' + output_directory)
-                    os.system('cp inlist ' + mesa_directory)
-                    os.system('condor_submit \'condor.job\'')
-                    os.system('rm -f inlist')
-                    os.system('rm condor.job')
+                replace_line('templates/condor.job.template',
+                             'Log =', 
+                             'Log =' + os.path.join(output_directory,'condor.log'),
+                             'condor.job')
+                replace_line('condor.job',
+                             'Output =', 
+                             'Output =' + os.path.join(output_directory,'condor.out'),
+                             'condor.job')
+                replace_line('condor.job',
+                             'environment = OMP_NUM_THREADS=1;PYTHONBUFFERED=1',
+                             'environment = OMP_NUM_THREADS=1;PYTHONBUFFERED=1;MESA_DIR=' +mesa_root_dir,
+                             'condor.job')
+                replace_line('condor.job',
+                             'Error =', 
+                             'Error =' + os.path.join(output_directory,'condor.err'),
+                             'condor.job')
+                replace_line('templates/run_mesa.sh.template',
+                             'cd', 
+                             'cd ' + mesa_directory,
+                             'run_mesa.sh')
+                os.system('cp inlist ' + output_directory)
+                os.system('cp inlist ' + mesa_directory)
+                os.system('chmod +x run_mesa.sh')
+                os.system('condor_submit condor.job')
+                #clean up
+                #os.system('rm -f inlist')
+                #os.system('rm condor.job')
+                #os.system('rm run_mesa.sh')
 
 
 if __name__ == "__main__":

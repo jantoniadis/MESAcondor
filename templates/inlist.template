@@ -42,7 +42,7 @@
     change_initial_net = .true.
 
 
-    new_net_name = 'star/test_suite/cluster/weak.net'  !NeNa, MgAl cycles + Urca 
+    new_net_name = 'weak.net'  !NeNa, MgAl cycles + Urca 
     use_suzuki_weak_rates = .true.
 
     kappa_file_prefix = 'gs98'
@@ -77,7 +77,7 @@ initial_y
 
 
 
-terminal_interval = 1000000
+terminal_interval = 10000
 write_header_frequency = 10
 log_directory 
 photo_directory 
@@ -198,6 +198,7 @@ photo_directory
 
             gradT_excess_dlambda = 0.1
             gradT_excess_dbeta = 0.1
+
 
 
    screening_mode = 'extended'

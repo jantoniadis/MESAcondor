@@ -1,10 +1,11 @@
 Universe = vanilla
 getenv = True
-Executable = 
+Executable = run_mesa.sh
 Output = 
 Error = 
-Log = 
-environment = OMP_NUM_THREADS=1;PYTHONBUFFERED=1
-request_cpus = 1 
+Log =
+request_memory = 1 GB
+environment = OMP_NUM_THREADS=2;PYTHONBUFFERED=1
+request_cpus = 2 
 
 queue 

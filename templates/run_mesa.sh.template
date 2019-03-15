@@ -1,4 +1,5 @@
 #!/bin/sh
 #ulimit -d 100000
-cd
-timeout 7d nice -n 10 ./rn
+pwd
+cp -r
+./rn

@@ -1,4 +1,4 @@
 #!/bin/sh
 
-cd /vol/aibn185/data1/jantoniadis/mesa-r10398/star/test_suite/Condor
+cd /vol/aibn1107/data2/schanlar/mesa-r10398/star/test_suite/Condor
 ./rn

@@ -16,15 +16,16 @@
 
 
   ! or start at preMS and change composition
-    create_pre_main_sequence_model = .true.
-    set_uniform_initial_composition = .true.
-    initial_h1 = 0.d0
-    initial_h2 = 0.d0
-    initial_he3 = 0.d0
-    initial_he4
+    !create_pre_main_sequence_model = .true.
+    !set_uniform_initial_composition = .true.
+    !initial_h1 = 0.d0
+    !initial_h2 = 0.d0
+    !initial_he3 = 0.d0
+    !initial_he4
 
 
-
+    load_saved_model = .true.
+    saved_model_name
 
 
 
@@ -57,9 +58,9 @@
 
 &controls
 
-initial_mass = 1.5
-initial_z 
-initial_y
+!initial_mass = 1.5
+!initial_z 
+!initial_y
 
 
 
@@ -112,7 +113,7 @@ write_header_frequency = 10
 
 
     use_Type2_opacities = .true.
-    Zbase
+    !Zbase
 
     ! Fixing the position of the Lagrangian region of the mesh helps
     ! convergence near the Eddington limit

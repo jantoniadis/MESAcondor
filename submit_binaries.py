@@ -116,7 +116,7 @@ def main():
                     
                     modify_inlist_value(inlist_var1,variable1['name'],value1,inlist_var1)
                     modify_inlist_value(inlist_var2,variable2['name'],value2,inlist_var2)
-                    modify_inlist_value(inlist_var3,variable3['name'],value3+'.mod',inlist_var3)
+                    modify_inlist_value(inlist_var3,variable3['name'],repr(value3+'.mod'),inlist_var3)
 
                     replace_line('templates/condor.job.template',
                           'Log =', 

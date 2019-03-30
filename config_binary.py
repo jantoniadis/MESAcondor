@@ -6,6 +6,8 @@ script_directory = '/vol/aibn1107/data2/schanlar/MESAcondor'
 
 #path to folder that contains the HeZAMS models
 init_dir = '/vol/hal/halraid/schanlar/Condor/HeZAMS/NO_OVERSHOOT'
+
+
 #Can explore up to three variables
 
 
@@ -34,9 +36,7 @@ for i in HeZAMS_paths:
 	except:
 		continue
 
-#initial_model_name.sort()
-#initial_model_path.sort()	
-#print(initial_model_zbase)
+
 
 variable1 = {'name': 'Zbase',
              'type': 'predetermined_array',

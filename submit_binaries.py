@@ -87,9 +87,10 @@ for variable in grid_variables:
 
 def main():
     
+    # Unpack Zbase, names, and paths for initial models
     initial_model_zbase = variable1['values']
-    initial_model_name, initial_model_path = variable3['values'] # Unpack names + paths
-    #for value1 in variable1['values']:
+    initial_model_name, initial_model_path = variable3['values']
+    
         
     for value2 in variable2['values']:
         for value1, value3, value4 in zip(initial_model_zbase, initial_model_name, initial_model_path):

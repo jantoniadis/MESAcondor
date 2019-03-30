@@ -86,73 +86,75 @@ for variable in grid_variables:
 
 
 def main():
-
+    
+    initial_model_zbase = variable1['values']
     initial_model_name, initial_model_path = variable3['values'] # Unpack names + paths
-    for value1 in variable1['values']:
-        for value2 in variable2['values']:
-            for value3, value4 in zip(initial_model_name, initial_model_path):
-                #output_directory = "bin{:0.4f}_{:0.4f}_{:0.4f}".format(value1,value2,value3)
-                output_directory = "bin_{:0.4f}".format(value2)+"_"+value3
+    #for value1 in variable1['values']:
+        
+    for value2 in variable2['values']:
+        for value1, value3, value4 in zip(initial_model_zbase, initial_model_name, initial_model_path):
+            #output_directory = "bin{:0.4f}_{:0.4f}_{:0.4f}".format(value1,value2,value3)
+            output_directory = "bin_{:0.4f}".format(value2)+"_"+value3
 
-                output_directory = os.path.join(out_directory,output_directory)
-                condor_job = os.path.join(output_directory,'condor.job')
-                run_mesa = os.path.join(output_directory,'run_mesa.sh')
-                inlist1 = os.path.join(output_directory,'inlist1')
-                inlist2 = os.path.join(output_directory,'inlist2')
-                inlist_project = os.path.join(output_directory,'inlist_project')
-                model_name = os.path.join(output_directory,'final_model.mod')
-                final_profile_name = os.path.join(output_directory,'final_profile.data')
+            output_directory = os.path.join(out_directory,output_directory)
+            condor_job = os.path.join(output_directory,'condor.job')
+            run_mesa = os.path.join(output_directory,'run_mesa.sh')
+            inlist1 = os.path.join(output_directory,'inlist1')
+            inlist2 = os.path.join(output_directory,'inlist2')
+            inlist_project = os.path.join(output_directory,'inlist_project')
+            model_name = os.path.join(output_directory,'final_model.mod')
+            final_profile_name = os.path.join(output_directory,'final_profile.data')
 
-                if not os.path.exists(output_directory):
-                    os.makedirs(output_directory)
-                    os.chdir(os.path.join(out_directory, 'MESAcondor'))
-                    os.system('cp '+'templates/inlist1.template '+inlist1)
-                    os.system('cp '+'templates/inlist_project.template '+inlist_project)
-                    os.system('cp '+value4+' '+output_directory)
-            
-                    inlist_var1 = os.path.join(output_directory,variable1['inlist'])
-                    inlist_var2 = os.path.join(output_directory,variable2['inlist'])
-                    inlist_var3 = os.path.join(output_directory,variable3['inlist'])
-                    
-                    modify_inlist_value(inlist_var1,variable1['name'],value1,inlist_var1)
-                    modify_inlist_value(inlist_var2,variable2['name'],value2,inlist_var2)
-                    modify_inlist_value(inlist_var3,variable3['name'],repr(value3+'.mod'),inlist_var3)
+            if not os.path.exists(output_directory):
+                os.makedirs(output_directory)
+                os.chdir(os.path.join(out_directory, 'MESAcondor'))
+                os.system('cp '+'templates/inlist1.template '+inlist1)
+                os.system('cp '+'templates/inlist_project.template '+inlist_project)
+                os.system('cp '+value4+' '+output_directory)
+        
+                inlist_var1 = os.path.join(output_directory,variable1['inlist'])
+                inlist_var2 = os.path.join(output_directory,variable2['inlist'])
+                inlist_var3 = os.path.join(output_directory,variable3['inlist'])
+                
+                modify_inlist_value(inlist_var1,variable1['name'],value1,inlist_var1)
+                modify_inlist_value(inlist_var2,variable2['name'],value2,inlist_var2)
+                modify_inlist_value(inlist_var3,variable3['name'],repr(value3+'.mod'),inlist_var3)
 
-                    replace_line('templates/condor.job.template',
-                          'Log =', 
-                          'Log =' + os.path.join(output_directory,'condor.log'),
-                          condor_job)
-                    replace_line(condor_job,
-                          'Output =', 
-                          'Output =' + os.path.join(output_directory,'condor.out'),
-                          condor_job)
-                    #replace_line(condor_job,
-                    #             'Executable = run_mesa.sh', 
-                    #             'Executable ='+os.path.join(output_directory,'run_mesa.sh'),
-                    #             condor_job)
-                    replace_line(condor_job,
-                         'environment = OMP_NUM_THREADS=1;PYTHONBUFFERED=1',
-                         'environment = OMP_NUM_THREADS=1;PYTHONBUFFERED=1;MESA_DIR=' +mesa_root_dir,
-                          condor_job)
-                    replace_line(condor_job,
-                         'Error =', 
-                         'Error =' + os.path.join(output_directory,'condor.err'),
-                          condor_job)
-                    replace_line('templates/run_mesa.sh.template',
-                          'cp -r', 
-                          'cp -r ' + os.path.join(mesa_directory,'*')+ ' '+output_directory,
-                          run_mesa)
-                    replace_line(run_mesa,
-                           './rn', 
-                    os.path.join(output_directory,'*') + 'binary',
-                            run_mesa)
-                    os.system('chmod +x ' + run_mesa)
-                    print('')
-                    print('creating files in' + output_directory)
-                    print('')
-                    os.chdir(output_directory)
-                    os.system('condor_submit condor.job')
-                    os.chdir(script_directory) 
+                replace_line('templates/condor.job.template',
+                      'Log =', 
+                      'Log =' + os.path.join(output_directory,'condor.log'),
+                      condor_job)
+                replace_line(condor_job,
+                      'Output =', 
+                      'Output =' + os.path.join(output_directory,'condor.out'),
+                      condor_job)
+                #replace_line(condor_job,
+                #             'Executable = run_mesa.sh', 
+                #             'Executable ='+os.path.join(output_directory,'run_mesa.sh'),
+                #             condor_job)
+                replace_line(condor_job,
+                     'environment = OMP_NUM_THREADS=1;PYTHONBUFFERED=1',
+                     'environment = OMP_NUM_THREADS=1;PYTHONBUFFERED=1;MESA_DIR=' +mesa_root_dir,
+                     condor_job)
+                replace_line(condor_job,
+                     'Error =', 
+                     'Error =' + os.path.join(output_directory,'condor.err'),
+                      condor_job)
+                replace_line('templates/run_mesa.sh.template',
+                      'cp -r', 
+                      'cp -r ' + os.path.join(mesa_directory,'*')+ ' '+output_directory,
+                      run_mesa)
+                replace_line(run_mesa,
+                       './rn', 
+                os.path.join(output_directory,'*') + 'binary',
+                        run_mesa)
+                os.system('chmod +x ' + run_mesa)
+                print('')
+                print('creating files in' + output_directory)
+                print('')
+                os.chdir(output_directory)
+                os.system('condor_submit condor.job')
+                os.chdir(script_directory) 
 
 
 if __name__ == "__main__":

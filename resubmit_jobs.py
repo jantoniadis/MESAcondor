@@ -35,6 +35,8 @@ def createFiles(path):
         os.system('touch condor_restart.out')
         os.system('touch condor_restart.log')
         os.system('touch condor_restart.err')
+
+        os.chdir(path)
         os.system('touch condor.re')
         os.system('touch restart_mesa.sh')
 
@@ -60,15 +62,15 @@ def restartMesa(path, photo, model):
 
     out_dir = os.path.join(path, 'Restarted')
 
-    fileExists = os.path.isfile(out_dir + '/restart_mesa.sh')
+    fileExists = os.path.isfile(path + '/restart_mesa.sh')
 
     if fileExists:
-        os.chdir(out_dir)
+        os.chdir(path)
         os.system('> restart_mesa.sh')
         os.system('echo ' + '\#\!/bin/bash >> restart_mesa.sh')
         os.system('echo ' + './re ' + photo + ' >> restart_mesa.sh')
 
-        os.system('chmod +x ' + os.path.join(out_dir + '/restart_mesa.sh'))
+        os.system('chmod +x ' + os.path.join(path + '/restart_mesa.sh'))
         print('Restarting photo', photo, 'for model', model)
         os.system('condor_submit condor.re')
 

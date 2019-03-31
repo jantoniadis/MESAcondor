@@ -13,7 +13,7 @@ def searchOutput(path):
 
     with FileReadBackwards(path+'/condor.out') as file:
         for line in file:
-            if line.startswith('save ' + path + '/photos/'):
+            if line.startswith('save ' + path + '/photos/') or line.startswith('save photos/'):
                 words = re.split('/|, | ', line)
                 break
     return words[-4], words[-1]

@@ -70,7 +70,7 @@ def restartMesa(path, photo, model):
         os.system('echo ' + '\#\!/bin/bash >> restart_mesa.sh')
         os.system('echo ' + './re ' + photo + ' >> restart_mesa.sh')
 
-        os.system('chmod +x ' + os.path.join(path + '/restart_mesa.sh'))
+        os.system('chmod +x ' + os.path.join(path, 'restart_mesa.sh'))
         print('Restarting photo', photo, 'for model', model)
         os.system('condor_submit condor.re')
 

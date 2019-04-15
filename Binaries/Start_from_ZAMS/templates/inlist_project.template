@@ -1,0 +1,28 @@
+&binary_job
+
+   inlist_names(1) = 'inlist1' 
+   inlist_names(2) = 'inlist2'
+
+   evolve_both_stars = .false.
+
+/ ! end of binary_job namelist
+
+&binary_controls
+         
+   m1
+   m2 = 1.0d0 ! companion mass in Msun
+   initial_period_in_days
+
+   do_wind_mass_transfer_1 = .true.
+
+   fr = 0.05
+   fr_limit = 1d-2
+
+   terminate_if_initial_overflow = .true.
+   terminate_if_L2_overflow = .true.
+
+   mass_transfer_beta = 0.8
+
+   limit_retention_by_mdot_edd = .true.
+         
+/ ! end of binary_controls namelist

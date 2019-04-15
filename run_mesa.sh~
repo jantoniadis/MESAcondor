@@ -1,4 +1,0 @@
-#!/bin/sh
-
-cd /vol/aibn1107/data2/schanlar/mesa-r10398/star/test_suite/Condor
-./rn

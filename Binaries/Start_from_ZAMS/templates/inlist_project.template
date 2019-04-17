@@ -9,7 +9,7 @@
 
 &binary_controls
          
-   !m1
+   m1
    m2 = 1.0d0 ! companion mass in Msun
    initial_period_in_days
 
